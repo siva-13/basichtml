@@ -10,15 +10,18 @@ pool:
   vmImage: ubuntu-latest
 
 stages:
-  - stage: "html"
-    displayName : "html tag"
+  - stage: "htmltest"
+    displayName: "html test"
     jobs:
-      - job: 'junittest'
-        displayName: "junt test over here"
+      - job : "html"
+        displayName : "html test demo"
         steps:
-          - script: echo 'hello world'
-          - task: PythonScript@0
+          - script : echo "hello world"
+          - task: Ant@1
             inputs:
-              scriptSource: 'inline'
-              script: 'print("siva")'
+              buildFile: 'build.xml'
+              options: 
+              publishJUnitResults: true
+              testResultsFiles: '**/TEST-*.xml'
+              javaHomeOption: 'JDKVersion'
     
